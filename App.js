@@ -1,11 +1,15 @@
 import React,{Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer,createStackNavigator } from 'react-navigation';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import  Home from './screen/Home'
 import  MainUser from './screen/user/MainUser'
+import AddUser from './screen/user/AddUser'
+import EditUser from './screen/user/EditUser'
+import AddUnit from './screen/unit/AddUnit'
+import EditUnit from './screen/unit/EditUnit'
 import  MainUnit from './screen/unit/MainUnit'
-import Settting from './screen/setting/MainSetting'
+import Setting from './screen/setting/MainSetting'
 
 export  function App() {
   return (
@@ -20,7 +24,7 @@ class IconWithBadge extends Component {
     const { name, badgeCount, color, size } = this.props;
     return (
       <View style={{ width: 24, height: 24, margin: 5 }}>
-        <Ionicons name={name} size={size} color={color} />
+        <SimpleLineIcons name={name} size={size} color={color} />
         {badgeCount > 0 && (
           <View
             style={{
@@ -51,38 +55,72 @@ const HomeIconWithBadge = props => {
   return <IconWithBadge {...props} badgeCount={3} />;
 };
 
-const getTabBarIcon = (navigation, focused, tintColor) => {
+let getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
-  let IconComponent = Ionicons;
+  let IconComponent = SimpleLineIcons;
   let iconName;
   if (routeName === 'home') {
-    iconName = `home${focused ? '' : '-outline'}`;
+    iconName = `home`;
     // We want to add badges to home tab icon
-  //  IconComponent = HomeIconWithBadge;
+    //IconComponent = HomeIconWithBadge;
   } else if (routeName === 'setting') {
-    iconName = `ios-options${focused ? '' : '-outline'}`;
+    iconName = `settings`;
   }
-  // else if(routeName==='user'){
-  //   iconName = `user-o${focused ? '' : '-outline'}`;
-  // }else{
-  //   //unit
-  //   iconName = `house-damage${focused ? '' : '-outline'}`;
-  // }
+  else if(routeName==='user'){
+    iconName = `user`;
+  }else{
+    //unit
+    iconName = `organization`;
+  }
 
   // You can return any component that you like here!
   return <IconComponent name={iconName} size={25} color={tintColor} />;
 };
 
+const userStack = createStackNavigator({
+  mainUser:{screen:MainUser} ,
+  addUser: {screen: AddUser},
+  editUser: {screen: EditUser},
+});
+
+const unitStack = createStackNavigator({
+  mainUnit: {screen:MainUnit},  
+  addUnit: {screen:AddUnit},
+  editUnit: {screen:EditUnit},
+});
+
+
 const TabNavigator = createBottomTabNavigator({
-  home: { screen: Home },
-  user:{screen:MainUser},
-  unit:{screen: MainUnit},
-  settting: { screen: Settting },
+  // home: {screen: Home},
+  // user: {screen:MainUser},
+  // unit: {screen: MainUnit},
+  // setting: {screen: Setting},
+    home:  {screen: Home},
+    setting: {screen: Setting},
+    user:userStack,
+    unit:unitStack,
+    
 },
 {
   defaultNavigationOptions: ({ navigation }) => ({
-    tabBarIcon: ({ focused, tintColor }) =>
-      getTabBarIcon(navigation, focused, tintColor),
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
+      // tabBarIcon: ({ focused, horizontal, tintColor }) => {
+      //   const { routeName } = navigation.state;
+      //   let IconComponent = SimpleLineIcons;
+      //   let iconName;
+      //   if (routeName === 'home') {
+      //     iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+      //     // Sometimes we want to add badges to some icons. 
+      //     // You can check the implementation below.
+      //     //IconComponent = HomeIconWithBadge; 
+      //   } else if (routeName === 'setting') {
+      //     iconName = `ios-options`;
+      //   }
+
+      //   // You can return any component that you like here!
+      //   return <IconComponent name={iconName} size={25} color={tintColor} />;
+      // },
   }),
   tabBarOptions: {
     activeTintColor: 'tomato',
@@ -103,5 +141,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
 });
