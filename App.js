@@ -89,38 +89,29 @@ const unitStack = createStackNavigator({
   editUnit: {screen:EditUnit},
 });
 
+const homeStrack=createStackNavigator({
+  home:  {screen: Home},
+});
+
+const settingStrack=createStackNavigator({
+  setting: {screen: Setting},
+});
+
 
 const TabNavigator = createBottomTabNavigator({
-  // home: {screen: Home},
-  // user: {screen:MainUser},
-  // unit: {screen: MainUnit},
-  // setting: {screen: Setting},
-    home:  {screen: Home},
-    setting: {screen: Setting},
+
+    home:  homeStrack,    
     user:userStack,
     unit:unitStack,
+    setting: settingStrack,
+    
     
 },
 {
   defaultNavigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused,horizontal, tintColor }) =>
       getTabBarIcon(navigation, focused, tintColor)
-      // tabBarIcon: ({ focused, horizontal, tintColor }) => {
-      //   const { routeName } = navigation.state;
-      //   let IconComponent = SimpleLineIcons;
-      //   let iconName;
-      //   if (routeName === 'home') {
-      //     iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-      //     // Sometimes we want to add badges to some icons. 
-      //     // You can check the implementation below.
-      //     //IconComponent = HomeIconWithBadge; 
-      //   } else if (routeName === 'setting') {
-      //     iconName = `ios-options`;
-      //   }
 
-      //   // You can return any component that you like here!
-      //   return <IconComponent name={iconName} size={25} color={tintColor} />;
-      // },
   }),
   tabBarOptions: {
     activeTintColor: 'tomato',

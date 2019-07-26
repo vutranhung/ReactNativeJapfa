@@ -5,10 +5,10 @@ export default class MainUnit extends Component {
     title: 'List Unit',
     //Sets Header text of Status Bar
     headerStyle: {
-      backgroundColor: '#98e2fa',
+      backgroundColor: '##ADD8E6',
       //Sets Header color
     },
-    headerTintColor: '#fff',
+    headerTintColor: '#ffffff',
     //Sets Header text color
     headerTitleStyle: {
       fontWeight: 'bold',

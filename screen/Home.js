@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createAppContainer,createStackNavigator } from 'react-navigation';
+import { StyleSheet, Text, View , Image } from 'react-native';
+
 
 export default class Home extends Component {
 
@@ -8,7 +8,7 @@ export default class Home extends Component {
     title: 'Home',
     //Sets Header text of Status Bar
     headerStyle: {
-      backgroundColor: '#98e2fa',
+      backgroundColor: '#ADD8E6',
       //Sets Header color
     },
     headerTintColor: '#fff',
@@ -22,7 +22,8 @@ export default class Home extends Component {
   render(){
     return (
         <View style={styles.container}>
-            <Text>Home</Text>
+            <Text style={styles.styleText}>REACT NATIVE</Text>
+            <Image source={require('../assets/logo.png')} style={styles.styleImage}  />
         </View>
       );
   }
@@ -36,4 +37,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+ styleText:{
+   color:'#008080',
+   fontSize: 42,
+   fontWeight:'bold'
+
+ },
+
+ styleImage:{
+   width:300,
+   height:300
+ }
+
 });
