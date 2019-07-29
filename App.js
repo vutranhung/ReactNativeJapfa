@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator, createAppContainer,createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer,createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import  Home from './screen/Home'
 import  MainUser from './screen/user/MainUser'
@@ -10,50 +10,17 @@ import AddUnit from './screen/unit/AddUnit'
 import EditUnit from './screen/unit/EditUnit'
 import  MainUnit from './screen/unit/MainUnit'
 import Setting from './screen/setting/MainSetting'
+import  NavigationDrawerStructure from './screen/NavigationDrawerStructure'
 
-export  function App() {
+export   function App() {
   return (
     <View style={styles.container}>
-           
+               
     </View>
   );
 }
 
-class IconWithBadge extends Component {
-  render() {
-    const { name, badgeCount, color, size } = this.props;
-    return (
-      <View style={{ width: 24, height: 24, margin: 5 }}>
-        <SimpleLineIcons name={name} size={size} color={color} />
-        {badgeCount > 0 && (
-          <View
-            style={{
-              // /If you're using react-native < 0.57 overflow outside of the parent
-              // will not work on Android, see https://git.io/fhLJ8
-              position: 'absolute',
-              right: -6,
-              top: -3,
-              backgroundColor: 'red',
-              borderRadius: 6,
-              width: 12,
-              height: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
-              {badgeCount}
-            </Text>
-          </View>
-        )}
-      </View>
-    );
-  }
-}
 
-const HomeIconWithBadge = props => {
-  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
-  return <IconWithBadge {...props} badgeCount={3} />;
-};
 
 let getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
@@ -78,7 +45,16 @@ let getTabBarIcon = (navigation, focused, tintColor) => {
 };
 
 const userStack = createStackNavigator({
-  mainUser:{screen:MainUser} ,
+  mainUser:{screen:MainUser,
+    navigationOptions: ({ navigation }) => ({
+      title: 'List user',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#ADD8E6',
+      },
+      headerTintColor: '#fff',
+    }),
+  } ,
   addUser: {screen: AddUser},
   editUser: {screen: EditUser},
 });
@@ -89,9 +65,37 @@ const unitStack = createStackNavigator({
   editUnit: {screen:EditUnit},
 });
 
-const homeStrack=createStackNavigator({
-  home:  {screen: Home},
-});
+const homeStack=createStackNavigator({
+  // home:  {screen: Home,
+  //   navigationOptions= ({ navigation }) => ({
+  //     title: 'Home',
+  //     headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+  //     headerStyle: {
+  //       backgroundColor: '#ADD8E6',
+  //     },
+  //     headerTintColor: '#fff',
+  //     headerTitleStyle: {
+  //           fontWeight: 'bold',
+  //            //Sets Header text style
+  //        },
+  //   })
+  // },
+
+  home: {
+    screen: Home,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Home',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#ADD8E6',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+    
+},
+
+);
 
 const settingStrack=createStackNavigator({
   setting: {screen: Setting},
@@ -100,10 +104,14 @@ const settingStrack=createStackNavigator({
 
 const TabNavigator = createBottomTabNavigator({
 
-    home:  homeStrack,    
+    home:  homeStack,    
     user:userStack,
     unit:unitStack,
     setting: settingStrack,
+    // home:TabHome,
+    // user:TabUser,
+    // unit:TabUnit,
+    // setting:TabSetting
     
     
 },
@@ -120,8 +128,147 @@ const TabNavigator = createBottomTabNavigator({
 }
 
 );
+
+const TabHome = createBottomTabNavigator({
+  home: homeStack
+},
+{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
+
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+}
+
+)
+
+const TabUser = createBottomTabNavigator({
+  home: userStack
+}
+,
+{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
+
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+}
+)
+
+const TabUnit = createBottomTabNavigator({
+  home: unitStack
+}
+,
+{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
+
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+}
+)
+
+const TabSetting = createBottomTabNavigator({
+  setting: settingStrack
+}
+,
+{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
+
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+}
+)
+
+
+
+
+const DrawerNatigator=createDrawerNavigator({
+  tabHome:{
+    screen: TabHome,
+       navigationOptions: {
+       drawerLabel: 'Home',
+    },
+
+  },
+  tabUser:{
+    screen: TabUser ,
+       navigationOptions: {
+       drawerLabel: 'User',
+    },
+
+  },
+
+  tabUnit:{
+    screen: TabUnit,
+       navigationOptions: {
+       drawerLabel: 'Unit',
+    },
+
+  },
+
+  tabSetting:{
+    screen: TabSetting,
+       navigationOptions: {
+       drawerLabel: 'Setting',
+    },
+
+  }
+
+
+  // home: {
+  //   //Title
+  //   screen: TabNavigator.home,
+  //   navigationOptions: {
+  //     drawerLabel: 'Home',
+  //   },
+  // },
+
+  // user: {
+  //   //Title
+  //   screen: TabNavigator.user,
+  //   navigationOptions: {
+  //     drawerLabel: 'User',
+  //   },
+  // },
+
+  // unit: {
+  //   //Title
+  //   screen: TabNavigator.unit,
+  //   navigationOptions: {
+  //     drawerLabel: 'Unit',
+  //   },
+  // },
+
+  // setting: {
+  //   //Title
+  //   screen: TabNavigator.setting,
+  //   navigationOptions: {
+  //     drawerLabel: 'Setting',
+  //   },
+  // },
+
+})
  
 const MainApp=createAppContainer(TabNavigator)
+const DrawerApp=createAppContainer(DrawerNatigator)
 
 export default MainApp;
 
