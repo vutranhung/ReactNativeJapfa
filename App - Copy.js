@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator, createAppContainer,createStackNavigator, createDrawerNavigator } from 'react-navigation';
-
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import  Home from './screen/Home'
 import  MainUser from './screen/user/MainUser'
@@ -12,9 +11,6 @@ import EditUnit from './screen/unit/EditUnit'
 import  MainUnit from './screen/unit/MainUnit'
 import Setting from './screen/setting/MainSetting'
 import  NavigationDrawerStructure from './screen/NavigationDrawerStructure'
-import DrawerHead from './screen/DrawerHead'
-
-import { Icon } from 'react-native-elements'
 
 export   function App() {
   return (
@@ -70,6 +66,21 @@ const unitStack = createStackNavigator({
 });
 
 const homeStack=createStackNavigator({
+  // home:  {screen: Home,
+  //   navigationOptions= ({ navigation }) => ({
+  //     title: 'Home',
+  //     headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+  //     headerStyle: {
+  //       backgroundColor: '#ADD8E6',
+  //     },
+  //     headerTintColor: '#fff',
+  //     headerTitleStyle: {
+  //           fontWeight: 'bold',
+  //            //Sets Header text style
+  //        },
+  //   })
+  // },
+
   home: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
@@ -86,15 +97,28 @@ const homeStack=createStackNavigator({
 
 );
 
+const settingStrack=createStackNavigator({
+  setting: {screen: Setting},
+});
+
+
 const TabNavigator = createBottomTabNavigator({
+
     home:  homeStack,    
     user:userStack,
-    unit:unitStack,        
+    unit:unitStack,
+    setting: settingStrack,
+    // home:TabHome,
+    // user:TabUser,
+    // unit:TabUnit,
+    // setting:TabSetting
+    
+    
 },
 {
   defaultNavigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused,horizontal, tintColor }) =>
-    getTabBarIcon(navigation, focused, tintColor)
+      getTabBarIcon(navigation, focused, tintColor)
 
   }),
   tabBarOptions: {
@@ -105,43 +129,148 @@ const TabNavigator = createBottomTabNavigator({
 
 );
 
-const TabHome=createAppContainer(TabNavigator)
+const TabHome = createBottomTabNavigator({
+  home: homeStack
+},
+{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
 
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+}
+
+)
+
+const TabUser = createBottomTabNavigator({
+  home: userStack
+}
+,
+{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
+
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+}
+)
+
+const TabUnit = createBottomTabNavigator({
+  home: unitStack
+}
+,
+{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
+
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+}
+)
+
+const TabSetting = createBottomTabNavigator({
+  setting: settingStrack
+}
+,
+{
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused,horizontal, tintColor }) =>
+      getTabBarIcon(navigation, focused, tintColor)
+
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+}
+)
+
+
+
+const MainApp=createAppContainer(TabNavigator)
 const DrawerNatigator=createDrawerNavigator({
   tabHome:{
-    screen: TabHome,
+    screen: MainApp,
        navigationOptions: {
        drawerLabel: 'Home',
-       drawerIcon: ({ tintColor }) => <Icon name="home" color={tintColor} size={20} />
+    },
+
+  },
+  tabUser:{
+    screen: TabUser ,
+       navigationOptions: {
+       drawerLabel: 'User',
     },
 
   },
 
-  setting:{
-    screen: Setting,
+  tabUnit:{
+    screen: TabUnit,
+       navigationOptions: {
+       drawerLabel: 'Unit',
+    },
+
+  },
+
+  tabSetting:{
+    screen: TabSetting,
        navigationOptions: {
        drawerLabel: 'Setting',
-       drawerIcon: () => <Icon name="settings" color='#00aced' size={20} />
     },
 
   }
 
-} ,
-{
-   contentComponent: DrawerHead,
-    hideStatusBar: true,
-    drawerBackgroundColor: '#5295ae',
-    overlayColor: '#6b52ae',
-    contentOptions: {
-      activeTintColor: '#fff',
-      activeBackgroundColor: '#6b52ae',
-    },
-}
-)
+
+  // home: {
+  //   //Title
+  //   screen: TabNavigator.home,
+  //   navigationOptions: {
+  //     drawerLabel: 'Home',
+  //   },
+  // },
+
+  // user: {
+  //   //Title
+  //   screen: TabNavigator.user,
+  //   navigationOptions: {
+  //     drawerLabel: 'User',
+  //   },
+  // },
+
+  // unit: {
+  //   //Title
+  //   screen: TabNavigator.unit,
+  //   navigationOptions: {
+  //     drawerLabel: 'Unit',
+  //   },
+  // },
+
+  // setting: {
+  //   //Title
+  //   screen: TabNavigator.setting,
+  //   navigationOptions: {
+  //     drawerLabel: 'Setting',
+  //   },
+  // },
+
+})
  
 const DrawerApp=createAppContainer(DrawerNatigator)
 
 export default DrawerApp;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -152,3 +281,4 @@ const styles = StyleSheet.create({
     
   },
 });
+0

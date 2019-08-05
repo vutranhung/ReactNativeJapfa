@@ -4,22 +4,19 @@ import { DrawerActions } from 'react-navigation';
 
 export default class NavigationDrawerStructure extends Component {
     //Structure for the navigatin Drawer
-    toggleDrawer=(x,y)=> {
-        Alert.alert(y)
+    toggleDrawer=()=> {       
       //Props to open/close the drawer
-      //this.props.navigationProps.toggleDrawer();
-      this.props.navigationProps.dispatch(DrawerActions.toggleDrawer());
-      
+    this.props.navigationProps.toggleDrawer();
+      //this.props.navigationProps.dispatch(DrawerActions.toggleDrawer());      
     // this.props.navigation.toggleDrawer();
     };
     render() {
       return (
         <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity onPress={()=>{this.toggleDrawer('abc','a')}}>
-            {/*Donute Button Image */}
+          <TouchableOpacity onPress={()=>this.toggleDrawer()}>           
             <Image
               source={require('../assets/drawer.png')}
-              style={{ width: 27, height: 22, marginLeft: 8 }}
+              style={{ width: 30, height: 26, marginLeft: 5 }}
             />
           </TouchableOpacity>
         </View>
