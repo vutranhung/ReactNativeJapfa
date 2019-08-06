@@ -34,7 +34,7 @@ const DrawerHead = (props) => (
 export default DrawerHead
 
 const styles = StyleSheet.create({
-        container: {
+    container: {
     flex: 1,
     backgroundColor: '#ADD8E6',       
   },

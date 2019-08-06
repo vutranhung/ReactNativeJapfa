@@ -82,7 +82,7 @@ export default class MainUnit extends Component {
       const {navigate} = this.props.navigation;
       return (
           <View style={styles.container}>
-          <Button
+          <Button buttonStyle={styles.TouchableOpacityStyle}
               icon={
                 <Icon
               name="plus"
@@ -119,6 +119,24 @@ export default class MainUnit extends Component {
       //paddingTop: 5,
       backgroundColor: 'skyblue',
       marginTop: 5,
-    }
+    },
+
+    TouchableOpacityStyle: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 30,
+    bottom: 30,
+  },
+
+  FloatingButtonStyle: {
+    resizeMode: 'contain',
+    width: 50,
+    height: 50,
+    //backgroundColor:'black'
+  },
+
   });
   

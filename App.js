@@ -6,7 +6,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import  Home from './screen/Home'
 import  MainUser from './screen/user/MainUser'
 import AddEditUnit from './screen/unit/AddEditUnit'
-import AddEditUser from './screen/user/AddUser'
+import AddEditUser from './screen/user/AddEditUser'
 import AddUser from './screen/user/AddUser'
 import EditUser from './screen/user/EditUser'
 import AddUnit from './screen/unit/AddUnit'
