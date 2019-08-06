@@ -48,7 +48,7 @@ export default class MainUser extends Component {
   GenerateListView=(item)=>{
    
     var genderStr=''
-    if(item.gender=='M'){
+    if(item.GENDER=='M'){
         genderStr='Male'
     }else{
         genderStr='Female'
@@ -56,8 +56,8 @@ export default class MainUser extends Component {
       return(
           <View style={styles.styleFlatList}>
             
-            <Text>UserName:{item.userName}</Text>
-            <Text>FullName:{item.fullName}</Text>
+            <Text>UserName:{item.USERNAME}</Text>
+            <Text>FullName:{item.FULLNAME}</Text>
             <Text>Gender:{genderStr}</Text>
           </View>
       );
@@ -66,27 +66,28 @@ export default class MainUser extends Component {
 
   componentDidMount() {
 
-    function getMoviesFromApiAsync() {
-      return fetch('https://')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          return responseJson.movies;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-
-
-   let data= [{id:1,userName:'bac.nt',fullName:'nguyễn thanh bắc',gender:'M'},
-  {id:2,userName:'hoang.vu', fullName:'Vũ hoàng', gender:'M'},
-  {id:3,userName:'lan.tt', fullName:'Trần Thanh Lan', gender:'F'}
-    ]
-  this.setState({
-    data:data
-  })
     
+    fetch('http://10.0.2.2:50555/api/User/GetAllUser',{
+      method:'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+      .then((responseJson) => {   
+      let temp=JSON.stringify(responseJson)
+       this.setState({data:JSON.parse(temp)})
+         
+    }) 
+
+    .catch((error) =>{
+      console.error(error);
+    });
+      
   }
+
+
     render(){
       const {navigate} = this.props.navigation;
       return (
@@ -100,14 +101,14 @@ export default class MainUser extends Component {
               />
               }
               type="solid"
-              onPress={() => navigate('addUser')}
-             
+              onPress={() => navigate('addEditUser')}
+             //check edit hoac add
              title=" Add user"
         />
            <FlatList
               data={this.state.data}
               renderItem={({item}) =>this.GenerateListView(item) }
-              keyExtractor={(item, index) => item.id.toString()}
+              keyExtractor={(item, index) => item.ID.toString()}
            />
 
           </View>

@@ -5,12 +5,15 @@ import { createBottomTabNavigator, createAppContainer,createStackNavigator, crea
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import  Home from './screen/Home'
 import  MainUser from './screen/user/MainUser'
+import AddEditUnit from './screen/unit/AddEditUnit'
+import AddEditUser from './screen/user/AddUser'
 import AddUser from './screen/user/AddUser'
 import EditUser from './screen/user/EditUser'
 import AddUnit from './screen/unit/AddUnit'
 import EditUnit from './screen/unit/EditUnit'
 import  MainUnit from './screen/unit/MainUnit'
 import Setting from './screen/setting/MainSetting'
+
 import  NavigationDrawerStructure from './screen/NavigationDrawerStructure'
 import DrawerHead from './screen/DrawerHead'
 
@@ -59,14 +62,26 @@ const userStack = createStackNavigator({
       headerTintColor: '#fff',
     }),
   } ,
-  addUser: {screen: AddUser},
-  editUser: {screen: EditUser},
+  addEditUser:{screen:AddEditUser}
+  // addUser: {screen: AddUser},
+  // editUser: {screen: EditUser},
 });
 
 const unitStack = createStackNavigator({
-  mainUnit: {screen:MainUnit},  
-  addUnit: {screen:AddUnit},
-  editUnit: {screen:EditUnit},
+  mainUnit: {screen:MainUnit,
+    navigationOptions: ({ navigation }) => ({
+      title: 'List user',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#ADD8E6',
+      },
+      headerTintColor: '#fff',
+    }),
+  
+  }, 
+  addEditUnit:{screen:AddEditUnit} 
+  // addUnit: {screen:AddUnit},
+  // editUnit: {screen:EditUnit},
 });
 
 const homeStack=createStackNavigator({
