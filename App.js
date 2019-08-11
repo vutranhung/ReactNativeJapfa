@@ -11,7 +11,7 @@ import AddUser from './screen/user/AddUser'
 import EditUser from './screen/user/EditUser'
 import AddUnit from './screen/unit/AddUnit'
 import EditUnit from './screen/unit/EditUnit'
-import  MainUnit from './screen/unit/MainUnit'
+import MainUnit from './screen/unit/MainUnit'
 import Setting from './screen/setting/MainSetting'
 
 import  NavigationDrawerStructure from './screen/NavigationDrawerStructure'
@@ -51,26 +51,25 @@ let getTabBarIcon = (navigation, focused, tintColor) => {
   return <IconComponent name={iconName} size={25} color={tintColor} />;
 };
 
-const userStack = createStackNavigator({
-  mainUser:{screen:MainUser,
-    navigationOptions: ({ navigation }) => ({
-      title: 'List user',
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#ADD8E6',
-      },
-      headerTintColor: '#fff',
-    }),
-  } ,
-  addEditUser:{screen:AddEditUser}
-  // addUser: {screen: AddUser},
-  // editUser: {screen: EditUser},
-});
+// const userStack = createStackNavigator({
+//   mainUser:{screen:MainUser,
+//     navigationOptions: ({ navigation }) => ({
+//       title: 'List user',
+//       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+//       headerStyle: {
+//         backgroundColor: '#ADD8E6',
+//       },
+//       headerTintColor: '#fff',
+//     }),
+//   } ,
+//   //addEditUser:{screen:AddEditUser}
+ 
+// });
 
 const unitStack = createStackNavigator({
   mainUnit: {screen:MainUnit,
     navigationOptions: ({ navigation }) => ({
-      title: 'List user',
+      title: 'List unit',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#ADD8E6',
@@ -80,21 +79,23 @@ const unitStack = createStackNavigator({
   
   }, 
   addEditUnit:{screen:AddEditUnit} 
-  // addUnit: {screen:AddUnit},
-  // editUnit: {screen:EditUnit},
+  
 });
+
 
 const homeStack=createStackNavigator({
   home: {
     screen: Home,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Home',
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#ADD8E6',
-      },
-      headerTintColor: '#fff',
-    }),
+
+    // navigationOptions: ({ navigation }) => ({
+    //   title: 'Home',
+    //   headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+    //   headerStyle: {
+    //     backgroundColor: '#ADD8E6',
+    //   },
+    //   headerTintColor: '#fff',
+    // }),
+
   },
     
 },
@@ -103,8 +104,11 @@ const homeStack=createStackNavigator({
 
 const TabNavigator = createBottomTabNavigator({
     home:  homeStack,    
-    user:userStack,
-    unit:unitStack,        
+   // user:userStack,   
+    user:MainUser,
+     unit:unitStack,    
+    //unit:MainUnit,
+       
 },
 {
   defaultNavigationOptions: ({ navigation }) => ({
@@ -146,10 +150,10 @@ const DrawerNatigator=createDrawerNavigator({
    contentComponent: DrawerHead,
     hideStatusBar: true,
     drawerBackgroundColor: '#5295ae',
-    overlayColor: '#6b52ae',
+    overlayColor: '#374671',
     contentOptions: {
       activeTintColor: '#fff',
-      activeBackgroundColor: '#6b52ae',
+      activeBackgroundColor: '#374671',
     },
 }
 )

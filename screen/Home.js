@@ -5,37 +5,41 @@ import NavigationDrawerStructure from './NavigationDrawerStructure'
 
 export default class Home extends Component {
 
-  // navigationOptions= ({ navigation }) => ({
-  //   title: 'Home',
-  //   headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
-  //   headerStyle: {
-  //     backgroundColor: '#ADD8E6',
-  //   },
-  //   headerTintColor: '#fff',
-  //   headerTitleStyle: {
-  //         fontWeight: 'bold',
-  //          //Sets Header text style
-  //      },
-  // })
-
-  static navigationOptions = {
+  static navigationOptions= ({ navigation }) => ({
     title: 'Home',
-    //Sets Header text of Status Bar
+    headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
     headerStyle: {
       backgroundColor: '#ADD8E6',
-      //Sets Header color
     },
-    headerLeft: <NavigationDrawerStructure />,
     headerTintColor: '#fff',
-    //Sets Header text color
     headerTitleStyle: {
-      fontWeight: 'bold',
-      //Sets Header text style
-    },
-  };
+          fontWeight: 'bold',
+           //Sets Header text style
+       },
+  })
 
-
+//  static navigationOptions = {
+//     title: 'Home',
+//     //Sets Header text of Status Bar
+//     headerStyle: {
+//       backgroundColor: '#ADD8E6',
+//       //Sets Header color
+//     },
+//     headerTintColor: '#fff',
+//     //Sets Header text color
+//     headerTitleStyle: {
+//       fontWeight: 'bold',
+//       textAlign:"center", 
+//         flex:1 
+//       //Sets Header text style
+//     },
+    
+//   };
  
+
+
+
+
   render(){
     return (
         <View style={styles.container}>
@@ -50,7 +54,7 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#374671',
     alignItems: 'center',
     justifyContent: 'center',
   },

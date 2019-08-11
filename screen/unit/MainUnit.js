@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View,FlatList } from 'react-native';
+import { StyleSheet, Text, View,FlatList, TouchableOpacity } from 'react-native';
 import NavigationDrawerStructure from '../NavigationDrawerStructure'
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,8 +7,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default class MainUnit extends Component {
 
   // navigationOptions= ({ navigation }) => ({
-  //   title: 'List Unit',
-  //   headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+  //   title: 'List unit',
+  //   //headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
   //   headerStyle: {
   //     backgroundColor: '#ADD8E6',
   //   },
@@ -19,13 +19,31 @@ export default class MainUnit extends Component {
   //      },
   // })
 
+// static navigationOptions = {
+//     title: 'List unit',
+//     //Sets Header text of Status Bar
+//     headerStyle: {
+//       backgroundColor: '#ADD8E6',
+//       //Sets Header color
+//     },
+//     headerTintColor: '#fff',
+//     //Sets Header text color
+//     headerTitleStyle: {
+//       fontWeight: 'bold',
+//       textAlign: 'center',
+//       //Sets Header text style
+//     },
+//   };
+
   constructor(props){
+  
     super(props);
     this.state={
       data:""
     }
   }
 
+ 
   GenerateListView=(item)=>{
    
       return(
@@ -79,28 +97,19 @@ export default class MainUnit extends Component {
   //   },
   // };
     render(){
-      const {navigate} = this.props.navigation;
+      //const {navigate} = this.props.navigation;
       return (
+               
           <View style={styles.container}>
-          <Button buttonStyle={styles.TouchableOpacityStyle}
-              icon={
-                <Icon
-              name="plus"
-              size={15}
-              color="white"           
-              />
-              }
-              type="solid"
-              onPress={() => navigate('addEditUnit')}
-             //todo check edit or add
-             title=" Add unit"
-        />
+         <Text>Unit screen</Text>
            <FlatList
               data={this.state.data}
               renderItem={({item}) =>this.GenerateListView(item) }
               keyExtractor={(item, index) => item.ID.toString()}
            />
-
+             <TouchableOpacity onPress={() => navigate('addEditUnit')} style={styles.fab}>
+          <Text style={styles.fabIcon}>+</Text>
+        </TouchableOpacity>
           </View>
         );
     }

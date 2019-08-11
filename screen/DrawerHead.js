@@ -21,7 +21,7 @@ const DrawerHead = (props) => (
   {/* <Image
   style={styles.drawerImage}
   source={require('../assets/logo.png')}/> */}
-  <Text>japfa comfeed company</Text>
+  <Text style={{color:'#EC5C1C'}}>JAPFA COMFEED COMPANY</Text>
   </Body>
   </Header>
   <Content>
